@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn More - Sabon Station</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Miniver&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        :root {
+            --white-color--: #fff;
+            --dark-color--: #252525;
+            --primary-color: #3106f0;
+            --secondary-color: #f3961c;
+            --light-pink-color: #faf4f5;
+            --medium-gray-color: #ccc;
+            --accent-color: #8b4513;
+
+            --font-size-s: 0.9rem;
+            --font-size-n: 1rem;
+            --font-size-m: 1.12rem;
+            --font-size-l: 1.5rem;
+            --font-size-xl: 2rem;
+            --font-size-xxl: 2.3rem;
+            --font-size-hero: 3.5rem;
+
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+
+            --border-radius-s: 8px;
+            --border-radius-m: 30px;
+            --border-radius-circle: 50%;
+
+            --site-max-width: 1300px;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--light-pink-color) 0%, #f0e6e8 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Container for the entire layout */
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Left Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #4a1a26 100%);
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            padding: 30px 20px;
+            z-index: 1000;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        .nav-logo {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-logo .logo-text {
+            color: var(--white-color--);
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .nav-logo .tagline {
+            color: var(--secondary-color);
+            font-size: var(--font-size-s);
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-menu .nav-link {
+            display: block;
+            padding: 18px 25px;
+            font-size: var(--font-size-m);
+            color: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius-s);
+            transition: all 0.4s ease;
+            font-weight: var(--font-weight-medium);
+            position: relative;
+            overflow: hidden;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-menu .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(243, 150, 28, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .nav-menu .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-menu .nav-link:hover {
+            background: rgba(243, 150, 28, 0.15);
+            color: var(--white-color--);
+            transform: translateX(8px);
+            border-left-color: var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(243, 150, 28, 0.2);
+        }
+
+        .nav-menu .nav-link.active {
+            background: var(--secondary-color);
+            color: var(--white-color--);
+            border-left-color: var(--white-color--);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+            width: calc(100% - 280px);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #4a1a26 50%, #5c2030 100%);
+            padding: 80px 40px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="15" cy="15" r="1.5" fill="rgba(255,255,255,0.1)" opacity="0.6"><animate attributeName="r" values="1.5;2.5;1.5" dur="4s" repeatCount="indefinite"/></circle><circle cx="85" cy="25" r="1" fill="rgba(255,255,255,0.08)" opacity="0.4"><animate attributeName="r" values="1;2;1" dur="6s" repeatCount="indefinite"/></circle><circle cx="50" cy="70" r="2" fill="rgba(255,255,255,0.06)" opacity="0.5"><animate attributeName="r" values="2;3;2" dur="5s" repeatCount="indefinite"/></circle></svg>');
+            background-size: 200px 200px;
+            animation: gentleFloat 12s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(180deg); }
+        }
+
+        .page-title {
+            font-size: var(--font-size-hero);
+            color: var(--white-color--);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .page-subtitle {
+            font-size: var(--font-size-l);
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .page-description {
+            font-size: var(--font-size-m);
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 80px 40px;
+            max-width: var(--site-max-width);
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: var(--font-size-xxl);
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            font-weight: var(--font-weight-bold);
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-section {
+            background: var(--white-color--);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .about-text {
+            font-size: var(--font-size-m);
+            line-height: 1.8;
+            color: var(--dark-color--);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        .about-text .highlight {
+            color: var(--secondary-color);
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .about-image {
+            background: linear-gradient(135deg, var(--light-pink-color) 0%, #f0e6e8 100%);
+            border-radius: var(--border-radius-s);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image::before {
+            content: '🫧';
+            font-size: 150px;
+            opacity: 0.3;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: var(--light-pink-color);
+            border-radius: var(--border-radius-s);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--secondary-color);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--primary-color);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* Process Section */
+        .process-section {
+            background: var(--light-pink-color);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .process-step {
+            background: var(--white-color--);
+            padding: 40px 30px;
+            border-radius: var(--border-radius-s);
+            text-align: center;
+            position: relative;
+            transition: all 0.4s ease;
+            border-top: 4px solid var(--secondary-color);
+        }
+
+        .process-step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--secondary-color);
+            color: var(--white-color--);
+            width: 40px;
+            height: 40px;
+            border-radius: var(--border-radius-circle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-weight-bold);
+            font-size: var(--font-size-m);
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .step-title {
+            font-size: var(--font-size-l);
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .step-description {
+            color: var(--dark-color--);
+            line-height: 1.6;
+        }
+
+        /* Values Section */
+        .values-section {
+            background: var(--white-color--);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .value-card {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #4a1a26 100%);
+            color: var(--white-color--);
+            padding: 40px 30px;
+            border-radius: var(--border-radius-s);
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(243, 150, 28, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .value-card:hover::before {
+            left: 100%;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(59, 20, 28, 0.3);
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+            color: var(--secondary-color);
+        }
+
+        .value-title {
+            font-size: var(--font-size-l);
+            margin-bottom: 15px;
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .value-description {
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #e8851a 100%);
+            color: var(--white-color--);
+            text-align: center;
+            padding: 80px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1.5" fill="rgba(255,255,255,0.08)"/><circle cx="80" cy="20" r="0.8" fill="rgba(255,255,255,0.06)"/></svg>');
+            background-size: 150px 150px;
+            animation: gentleFloat 15s infinite ease-in-out;
+        }
+
+        .cta-title {
+            font-size: var(--font-size-xl);
+            margin-bottom: 20px;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .cta-description {
+            font-size: var(--font-size-m);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-size: var(--font-size-m);
+            font-weight: var(--font-weight-semibold);
+            border-radius: var(--border-radius-m);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-white {
+            background: var(--white-color--);
+            color: var(--secondary-color);
+        }
+
+        .btn-white:hover {
+            background: transparent;
+            color: var(--white-color--);
+            border: 2px solid var(--white-color--);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white-color--);
+            border: 2px solid var(--white-color--);
+        }
+
+        .btn-outline:hover {
+            background: var(--white-color--);
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: var(--secondary-color);
+            color: var(--white-color--);
+            padding: 12px;
+            border-radius: var(--border-radius-s);
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: #e8851a;
+            transform: scale(1.05);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                width: 100vw;
+                background: rgba(59, 20, 28, 0.98);
+                backdrop-filter: blur(10px);
+            }
+
+            .mobile-menu-toggle:checked + .mobile-menu-btn + .sidebar {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .page-header {
+                padding: 60px 20px 40px;
+            }
+
+            .page-title {
+                font-size: var(--font-size-xxl);
+            }
+
+            .content-section {
+                padding: 60px 20px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .cta-section {
+                padding: 60px 20px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: var(--font-size-xl);
+            }
+
+            .section-title {
+                font-size: var(--font-size-xl);
+            }
+
+            .sidebar {
+                padding: 20px 15px;
+            }
+
+            .content-section {
+                padding: 40px 15px;
+            }
+
+            .about-image {
+                padding: 30px;
+            }
+
+            .process-step {
+                padding: 30px 20px;
+            }
+
+            .value-card {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Mobile Menu Toggle -->
+        <input type="checkbox" id="mobile-menu" class="mobile-menu-toggle">
+        <label for="mobile-menu" class="mobile-menu-btn">☰</label>
+
+        <!-- Left Sidebar Navigation -->
+        <nav class="sidebar">
+            <a href="#" class="nav-logo">
+                <h2 class="logo-text">🫧 Sabon Station</h2>
+                <p class="tagline">Premium Bath Experience</p>
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="learnmore.html" class="nav-link active">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a href="testimonals.html" class="nav-link">Testimonials</a>
+                </li>
+                <li class="nav-item">
+                    <a href="gallery.html" class="nav-link">Gallery</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="profile.html" class="nav-link">Profile</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Page Header -->
+            <section class="page-header">
+                <h1 class="page-title">About Sabon Station</h1>
+                <h2 class="page-subtitle">Crafting Luxury Since Day One</h2>
+                <p class="page-description">
+                    Discover the story behind our premium bath products and the passion that drives us to create the finest handcrafted soaps and bath essentials for your daily luxury experience.
+                </p>
+            </section>
+
+            <!-- About Section -->
+            <section class="about-section content-section">
+                <h2 class="section-title">Our Story</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>
+                            Founded with a simple mission: to transform ordinary bath routines into extraordinary spa experiences. At <span class="highlight">Sabon Station</span>, we believe that everyone deserves a moment of luxury in their daily life.
+                        </p>
+                        <p>
+                            Our journey began in a small artisan workshop, where we carefully experimented with natural ingredients and traditional soap-making techniques. What started as a passion project has grown into a trusted brand that serves thousands of customers worldwide.
+                        </p>
+                        <p>
+                            Every product we create is a testament to our commitment to <span class="highlight">quality, sustainability, and luxury</span>. We source only the finest natural ingredients and use time-honored methods to ensure each item meets our exacting standards.
+                        </p>
+                    </div>
+                    <div class="about-image">
+                        <div class="about-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">5000+</span>
+                                <span class="stat-label">Happy Customers</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">50+</span>
+                                <span class="stat-label">Unique Products</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Natural Ingredients</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">3</span>
+                                <span class="stat-label">Years Experience</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Process Section -->
+            <section class="process-section content-section">
+                <h2 class="section-title">Our Crafting Process</h2>
+                <div class="process-grid">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <span class="step-icon">🌱</span>
+                        <h3 class="step-title">Sourcing</h3>
+                        <p class="step-description">We carefully select premium natural ingredients from trusted suppliers worldwide, ensuring purity and sustainability in every component.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <span class="step-icon">⚗️</span>
+                        <h3 class="step-title">Formulation</h3>
+                        <p class="step-description">Our expert artisans blend ingredients using traditional methods combined with modern techniques to create perfect formulations.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <span class="step-icon">🔥</span>
+                        <h3 class="step-title">Crafting</h3>
+                        <p class="step-description">Each product is handcrafted in small batches with meticulous attention to detail, ensuring consistent quality and uniqueness.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <span class="step-icon">✨</span>
+                        <h3 class="step-title">Finishing</h3>
+                        <p class="step-description">Products are carefully cured, tested, and beautifully packaged to deliver the ultimate luxury experience to your doorstep.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Values Section -->
+            <section class="values-section content-section">
+                <h2 class="section-title">Our Core Values</h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <span class="value-icon">🌿</span>
+                        <h3 class="value-title">Sustainability</h3>
+                        <p class="value-description">We're committed to environmentally responsible practices, from sourcing ingredients to packaging our products with eco-friendly materials.</p>
+                    </div>
+                    <div class="value-card">
+                        <span class="value-icon">💎</span>
+                        <h3 class="value-title">Quality</h3>
+                        <p class="value-description">Every product undergoes rigorous quality checks to ensure it meets our premium standards and exceeds customer expectations.</p>
+                    </div>
+                    <div class="value-card">
+                        <span class="value-icon">❤️</span>
+                        <h3 class="value-title">Care</h3>
+                        <p class="value-description">We genuinely care about our customers' well-being and satisfaction, providing personalized service and premium products.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="cta-section">
+                <h2 class="cta-title">Ready to Experience Luxury?</h2>
+                <p class="cta-description">
+                    Join thousands of satisfied customers who have transformed their daily routines with our premium bath products. Discover the difference that quality and craftsmanship can make.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-white">Shop Our Collection</a>
+                    <a href="#" class="btn btn-outline">Contact Us</a>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

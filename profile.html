@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Sabon Station</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Miniver&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        :root {
+            --white-color--: #fff;
+            --dark-color--: #252525;
+            --primary-color: #3106f0;
+            --secondary-color: #f3961c;
+            --light-pink-color: #faf4f5;
+            --medium-gray-color: #ccc;
+
+            --font-size-s: 0.9rem;
+            --font-size-n: 1rem;
+            --font-size-m: 1.12rem;
+            --font-size-l: 1.5rem;
+            --font-size-xl: 2rem;
+            --font-size-xxl: 2.3rem;
+            --font-size-hero: 3.5rem;
+
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+
+            --border-radius-s: 8px;
+            --border-radius-m: 30px;
+            --border-radius-circle: 50%;
+
+            --site-max-width: 1300px;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--light-pink-color) 0%, #f0e6e8 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Container for the entire layout */
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Left Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #4a1a26 100%);
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            padding: 30px 20px;
+            z-index: 1000;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        .nav-logo {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-logo .logo-text {
+            color: var(--white-color--);
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .nav-logo .tagline {
+            color: var(--secondary-color);
+            font-size: var(--font-size-s);
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-menu .nav-link {
+            display: block;
+            padding: 18px 25px;
+            font-size: var(--font-size-m);
+            color: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius-s);
+            transition: all 0.4s ease;
+            font-weight: var(--font-weight-medium);
+            position: relative;
+            overflow: hidden;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-menu .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(243, 150, 28, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .nav-menu .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-menu .nav-link:hover {
+            background: rgba(243, 150, 28, 0.15);
+            color: var(--white-color--);
+            transform: translateX(8px);
+            border-left-color: var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(243, 150, 28, 0.2);
+        }
+
+        .nav-menu .nav-link.active {
+            background: var(--secondary-color);
+            color: var(--white-color--);
+            border-left-color: var(--white-color--);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+            width: calc(100% - 280px);
+            padding: 40px;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #4a1a26 100%);
+            padding: 60px 40px;
+            border-radius: var(--border-radius-s);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(243, 150, 28, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .profile-content {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: var(--border-radius-circle);
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #ff6b35 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--white-color--);
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .profile-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-info h1 {
+            font-size: var(--font-size-xxl);
+            color: var(--white-color--);
+            margin-bottom: 10px;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .profile-info .title {
+            font-size: var(--font-size-l);
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-weight: var(--font-weight-medium);
+        }
+
+        .profile-info .bio {
+            font-size: var(--font-size-m);
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-circle);
+            color: var(--white-color--);
+            font-size: 1.5rem;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(243, 150, 28, 0.4);
+        }
+
+        /* Profile Sections */
+        .profile-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .profile-section {
+            background: var(--white-color--);
+            padding: 40px;
+            border-radius: var(--border-radius-s);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-color), #ff6b35);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .profile-section:hover::before {
+            transform: scaleX(1);
+        }
+
+        .profile-section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-title {
+            font-size: var(--font-size-l);
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-weight: var(--font-weight-semibold);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-icon {
+            font-size: 2rem;
+            color: var(--secondary-color);
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--light-pink-color);
+            border-radius: var(--border-radius-s);
+            transition: all 0.3s ease;
+        }
+
+        .detail-item:hover {
+            background: #f0e6e8;
+            transform: translateX(5px);
+        }
+
+        .detail-icon {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            width: 30px;
+            text-align: center;
+        }
+
+        .detail-text {
+            flex: 1;
+        }
+
+        .detail-label {
+            font-size: var(--font-size-s);
+            color: var(--medium-gray-color);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-size: var(--font-size-n);
+            color: var(--dark-color--);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* Hobbies Grid */
+        .hobbies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .hobby-card {
+            background: var(--light-pink-color);
+            padding: 25px;
+            border-radius: var(--border-radius-s);
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+        }
+
+        .hobby-card:hover {
+            background: var(--white-color--);
+            border-color: var(--secondary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .hobby-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .hobby-card:hover .hobby-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .hobby-name {
+            font-size: var(--font-size-m);
+            color: var(--primary-color);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* Business Section */
+        .business-section {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--light-pink-color) 0%, #f0e6e8 100%);
+        }
+
+        .business-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: var(--white-color--);
+            padding: 30px;
+            border-radius: var(--border-radius-s);
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--secondary-color), #ff6b35);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-number {
+            font-size: var(--font-size-xxl);
+            color: var(--secondary-color);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-label {
+            font-size: var(--font-size-m);
+            color: var(--primary-color);
+            font-weight: var(--font-weight-medium);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: var(--secondary-color);
+            color: var(--white-color--);
+            padding: 12px;
+            border-radius: var(--border-radius-s);
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: #e8851a;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                width: 100vw;
+                background: rgba(59, 20, 28, 0.98);
+                backdrop-filter: blur(10px);
+            }
+
+            .mobile-menu-toggle:checked + .mobile-menu-btn + .sidebar {
+                transform: translateX(0);
+            }
+
+            .mobile-menu-toggle:checked + .mobile-menu-btn {
+                background: var(--primary-color);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+
+            .profile-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 30px;
+            }
+
+            .profile-avatar {
+                width: 150px;
+                height: 150px;
+                font-size: 3rem;
+                margin: 0 auto;
+            }
+
+            .profile-sections {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .profile-header {
+                padding: 40px 20px;
+            }
+
+            .profile-section {
+                padding: 30px 20px;
+            }
+
+            .hobbies-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+            }
+
+            .business-stats {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 20px;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-header {
+                padding: 30px 15px;
+            }
+
+            .profile-section {
+                padding: 20px 15px;
+            }
+
+            .profile-info h1 {
+                font-size: var(--font-size-xl);
+            }
+
+            .section-title {
+                font-size: var(--font-size-m);
+            }
+
+            .detail-item {
+                padding: 10px;
+            }
+        }
+
+        /* Focus states for accessibility */
+        .nav-link:focus,
+        .social-link:focus,
+        .mobile-menu-btn:focus {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Mobile Menu Toggle -->
+        <input type="checkbox" id="mobile-menu" class="mobile-menu-toggle">
+        <label for="mobile-menu" class="mobile-menu-btn">☰</label>
+
+        <!-- Left Sidebar Navigation -->
+        <nav class="sidebar">
+            <a href="#" class="nav-logo">
+                <h2 class="logo-text">🫧 Sabon Station</h2>
+                <p class="tagline">Premium Bath Experience</p>
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="learnmore.html" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="menu.html" class="nav-link">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a href="testimonals.html" class="nav-link">Testimonials</a>
+                </li>
+                <li class="nav-item">
+                    <a href="gallery.html" class="nav-link">Gallery</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="profile.html" class="nav-link active">Profile</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Profile Header -->
+            <section class="profile-header">
+                <div class="profile-content">
+                    <div class="profile-avatar">
+                        👨‍💼
+                    </div>
+                    <div class="profile-info">
+                        <h1>Ian Paolo Angeles Pasamonte</h1>
+                        <p class="title">Founder & CEO of Sabon Station</p>
+                        <p class="bio">
+                            Passionate entrepreneur with over 10 years of experience in premium bath products. 
+                            Dedicated to creating luxurious, eco-friendly cleaning solutions that transform 
+                            everyday chores into moments of indulgence.
+                        </p>
+                        <div class="social-links">
+                            <a href="#" class="social-link">📧</a>
+                            <a href="#" class="social-link">📱</a>
+                            <a href="#" class="social-link">🌐</a>
+                            <a href="#" class="social-link">📘</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Sections -->
+            <div class="profile-sections">
+                <!-- Personal Details -->
+                <section class="profile-section">
+                    <h2 class="section-title">
+                        <span class="section-icon">👤</span>
+                        Personal Details
+                    </h2>
+                    <div class="detail-item">
+                        <span class="detail-icon">📍</span>
+                        <div class="detail-text">
+                            <div class="detail-label">Location</div>
+                            <div class="detail-value">San Ignacio Pandan, Pampanga</div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">🎂</span>
+                        <div class="detail-text">
+                            <div class="detail-label">Age</div>
+                            <div class="detail-value">21 years old</div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">🎓</span>
+                        <div class="detail-text">
+                            <div class="detail-label">Education</div>
+                            <div class="detail-value">ACT- Asiociates in Computer Technology</div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">💍</span>
+                        <div class="detail-text">
+                            <div class="detail-label">Taken</div>
+                            <div class="detail-value">Have Cats</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Hobbies -->
+                <section class="profile-section">
+                    <h2 class="section-title">
+                        <span class="section-icon">🎨</span>
+                        Hobbies & Interests
+                    </h2>
+                    <div class="hobbies-grid">
+                        <div class="hobby-card">
+                            <span class="hobby-icon">🧪</span>
+                            <div class="hobby-name">Product Development</div>
+                        </div>
+                        <div class="hobby-card">
+                            <span class="hobby-icon">🌱</span>
+                            <div class="hobby-name">Gardening</div>
+                        </div>
+                        <div class="hobby-card">
+                            <span class="hobby-icon">📚</span>
+                            <div class="hobby-name">Reading</div>
+                        </div>
+                        <div class="hobby-card">
+                            <span class="hobby-icon">🍳</span>
+                            <div class="hobby-name">Cooking</div>
+                        </div>
+                        <div class="hobby-card">
+                            <span class="hobby-icon">🏃‍♀️</span>
+                            <div class="hobby-name">Running</div>
+                        </div>
+                        <div class="hobby-card">
+                            <span class="hobby-icon">📸</span>
+                            <div class="hobby-name">Photography</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Business Information -->
+                <section class="profile-section business-section">
+                    <h2 class="section-title">
+                        <span class="section-icon">💼</span>
+                        Business Journey
+                    </h2>
+                    <p style="margin-bottom: 30px; line-height: 1.7; color: var(--dark-color--);">
+                        Founded Sabon Station in 2019 with a vision to revolutionize the cleaning industry. 
+                        What started as a small home-based business has grown into a recognized brand known for 
+                        premium quality and exceptional customer service. Our commitment to natural ingredients 
+                        and sustainable practices has earned us a loyal customer base across the Philippines.
+                    </p>
+                    
+                    <div class="business-stats">
+                        <div class="stat-card">
+                            <div class="stat-number">5+</div>
+                            <div class="stat-label">Years in Business</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Products Developed</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">1000+</div>
+                            <div class="stat-label">Happy Customers</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">15+</div>
+                            <div class="stat-label">Retail Partners</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

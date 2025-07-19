@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Sabon Station</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Miniver&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        :root {
+            --white-color--: #fff;
+            --dark-color--: #252525;
+            --primary-color: #3106f0;
+            --secondary-color: #f3961c;
+            --light-pink-color: #faf4f5;
+            --medium-gray-color: #ccc;
+            --accent-color: #8b4a6b;
+
+            --font-size-s: 0.9rem;
+            --font-size-n: 1rem;
+            --font-size-m: 1.12rem;
+            --font-size-l: 1.5rem;
+            --font-size-xl: 2rem;
+            --font-size-xxl: 2.3rem;
+            --font-size-hero: 3.5rem;
+
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+
+            --border-radius-s: 8px;
+            --border-radius-m: 30px;
+            --border-radius-circle: 50%;
+
+            --site-max-width: 1300px;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--light-pink-color) 0%, #f0e6e8 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Container for the entire layout */
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Left Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #4a1a26 100%);
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            padding: 30px 20px;
+            z-index: 1000;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        .nav-logo {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-logo .logo-text {
+            color: var(--white-color--);
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .nav-logo .tagline {
+            color: var(--secondary-color);
+            font-size: var(--font-size-s);
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-menu .nav-link {
+            display: block;
+            padding: 18px 25px;
+            font-size: var(--font-size-m);
+            color: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius-s);
+            transition: all 0.4s ease;
+            font-weight: var(--font-weight-medium);
+            position: relative;
+            overflow: hidden;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-menu .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(243, 150, 28, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .nav-menu .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-menu .nav-link:hover {
+            background: rgba(243, 150, 28, 0.15);
+            color: var(--white-color--);
+            transform: translateX(8px);
+            border-left-color: var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(243, 150, 28, 0.2);
+        }
+
+        .nav-menu .nav-link:focus {
+            background: var(--secondary-color);
+            color: var(--white-color--);
+            border-left-color: var(--white-color--);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+            width: calc(100% - 280px);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 60vh;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #4a1a26 50%, #5c2030 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="15" cy="25" r="1.5" fill="rgba(255,255,255,0.1)" opacity="0.6"><animate attributeName="cy" values="25;15;25" dur="5s" repeatCount="indefinite"/></circle><circle cx="85" cy="35" r="2" fill="rgba(255,255,255,0.08)" opacity="0.4"><animate attributeName="cy" values="35;25;35" dur="7s" repeatCount="indefinite"/></circle><circle cx="50" cy="70" r="1.2" fill="rgba(255,255,255,0.06)" opacity="0.5"><animate attributeName="cy" values="70;60;70" dur="6s" repeatCount="indefinite"/></circle></svg>');
+            background-size: 250px 250px;
+            animation: bubbleFloat 12s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes bubbleFloat {
+            0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) translateX(8px) rotate(180deg); }
+            100% { transform: translateY(0px) translateX(0px) rotate(360deg); }
+        }
+
+        .hero-content {
+            max-width: 700px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: var(--font-size-xxl);
+            color: var(--white-color--);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: 20px;
+            line-height: 1.3;
+            animation: slideInFromTop 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: var(--font-size-l);
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            font-weight: var(--font-weight-medium);
+            animation: slideInFromTop 1s ease-out 0.2s both;
+        }
+
+        /* Menu Categories Section */
+        .menu-section {
+            padding: 100px 40px;
+            background: var(--white-color--);
+        }
+
+        .menu-container {
+            max-width: var(--site-max-width);
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: var(--font-size-xxl);
+            color: var(--primary-color);
+            margin-bottom: 60px;
+            font-weight: var(--font-weight-bold);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        .category-section {
+            margin-bottom: 80px;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--light-pink-color);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            margin-right: 20px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            padding: 15px;
+            border-radius: var(--border-radius-s);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 70px;
+            height: 70px;
+        }
+
+        .category-title {
+            font-size: var(--font-size-xl);
+            color: var(--primary-color);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: 8px;
+        }
+
+        .category-description {
+            color: var(--dark-color--);
+            font-size: var(--font-size-m);
+            opacity: 0.8;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--white-color--);
+            border-radius: var(--border-radius-s);
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--light-pink-color);
+            position: relative;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .product-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--light-pink-color), #f5e6e9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '🫧';
+            position: absolute;
+            font-size: 4rem;
+            opacity: 0.2;
+            animation: rotate 10s infinite linear;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .product-content {
+            padding: 25px;
+        }
+
+        .product-name {
+            font-size: var(--font-size-l);
+            color: var(--primary-color);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: 10px;
+        }
+
+        .product-description {
+            color: var(--dark-color--);
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: var(--font-size-n);
+        }
+
+        .product-features {
+            margin-bottom: 20px;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .feature-tag {
+            background: var(--light-pink-color);
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: var(--font-size-s);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-pink-color);
+        }
+
+        .price-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-amount {
+            font-size: var(--font-size-l);
+            color: var(--secondary-color);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .price-unit {
+            font-size: var(--font-size-s);
+            color: var(--dark-color--);
+            opacity: 0.7;
+        }
+
+        .add-to-cart-btn {
+            background: var(--primary-color);
+            color: var(--white-color--);
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius-s);
+            font-size: var(--font-size-n);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        /* Special Offers Section */
+        .offers-section {
+            padding: 80px 40px;
+            background: var(--light-pink-color);
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: var(--site-max-width);
+            margin: 0 auto;
+        }
+
+        .offer-card {
+            background: linear-gradient(135deg, var(--secondary-color), #e8851a);
+            color: var(--white-color--);
+            padding: 30px;
+            border-radius: var(--border-radius-s);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offer-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .offer-title {
+            font-size: var(--font-size-l);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: 15px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .offer-description {
+            font-size: var(--font-size-n);
+            margin-bottom: 20px;
+            z-index: 2;
+            position: relative;
+            opacity: 0.95;
+        }
+
+        .offer-code {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: var(--border-radius-s);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 1px;
+            z-index: 2;
+            position: relative;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            padding: 80px 40px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.05)"/><circle cx="75" cy="75" r="1.5" fill="rgba(255,255,255,0.03)"/><circle cx="50" cy="10" r="1" fill="rgba(255,255,255,0.04)"/></svg>');
+            background-size: 200px 200px;
+            animation: bubbleFloat 15s infinite linear;
+        }
+
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+            z-index: 2;
+            position: relative;
+        }
+
+        .cta-title {
+            font-size: var(--font-size-xxl);
+            color: var(--white-color--);
+            margin-bottom: 20px;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .cta-description {
+            font-size: var(--font-size-m);
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background: var(--secondary-color);
+            color: var(--white-color--);
+            font-size: var(--font-size-m);
+            font-weight: var(--font-weight-semibold);
+            border-radius: var(--border-radius-m);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            background: var(--white-color--);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Animations */
+        @keyframes slideInFromTop {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: var(--secondary-color);
+            color: var(--white-color--);
+            padding: 12px;
+            border-radius: var(--border-radius-s);
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: #e8851a;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                width: 100vw;
+                background: rgba(59, 20, 28, 0.98);
+                backdrop-filter: blur(10px);
+            }
+
+            .mobile-menu-toggle:checked + .mobile-menu-btn + .sidebar {
+                transform: translateX(0);
+            }
+
+            .mobile-menu-toggle:checked + .mobile-menu-btn {
+                background: var(--primary-color);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .hero-title {
+                font-size: var(--font-size-xl);
+            }
+
+            .hero-section {
+                padding: 40px 20px;
+                min-height: 50vh;
+            }
+
+            .menu-section,
+            .offers-section {
+                padding: 60px 20px;
+            }
+
+            .products-grid,
+            .offers-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .category-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .category-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .cta-section {
+                padding: 60px 20px;
+            }
+
+            .cta-title {
+                font-size: var(--font-size-xl);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: var(--font-size-l);
+            }
+
+            .section-title {
+                font-size: var(--font-size-xl);
+            }
+
+            .product-card,
+            .offer-card {
+                margin: 0 10px;
+            }
+
+            .product-content {
+                padding: 20px;
+            }
+
+            .category-title {
+                font-size: var(--font-size-l);
+            }
+        }
+
+        /* Focus states for accessibility */
+        .nav-link:focus,
+        .cta-button:focus,
+        .mobile-menu-btn:focus,
+        .add-to-cart-btn:focus {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Mobile Menu Toggle -->
+        <input type="checkbox" id="mobile-menu" class="mobile-menu-toggle">
+        <label for="mobile-menu" class="mobile-menu-btn">☰</label>
+
+        <!-- Left Sidebar Navigation -->
+        <nav class="sidebar">
+            <a href="#" class="nav-logo">
+                <h2 class="logo-text">🫧 Sabon Station</h2>
+                <p class="tagline">Premium Bath Experience</p>
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="learnmore.html" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="menu.html" class="nav-link">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a href="testimonals.html" class="nav-link">Testimonials</a>
+                </li>
+                <li class="nav-item">
+                    <a href="gallery.html" class="nav-link">Gallery</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="profile.html" class="nav-link">Profile</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">Our Premium Collection</h1>
+                    <h2 class="hero-subtitle">Discover artisan-crafted liquid soaps and detergents for every need</h2>
+                </div>
+            </section>
+
+            <!-- Menu Section -->
+            <section class="menu-section">
+                <div class="menu-container">
+                    <h2 class="section-title">Product Menu</h2>
+
+                    <!-- Liquid Hand Soaps Category -->
+                    <div class="category-section">
+                        <div class="category-header">
+                            <div class="category-icon">🧴</div>
+                            <div>
+                                <h3 class="category-title">Liquid Hand Soaps</h3>
+                                <p class="category-description">Premium hand soaps for gentle cleansing and moisturizing</p>
+                            </div>
+                        </div>
+                            <div class="products-grid">
+                            <div class="product-card">
+                                <div class=""><img src="../img/lavender.jpg" alt=""></div>
+                                <div class="product-content">
+                                    <h4 class="product-name">Lavender Dreams</h4>
+                                    <p class="product-description">A soothing blend of organic lavender essential oil and shea butter that gently cleanses while providing deep moisturization.</p>
+                                    <div class="product-features">
+                                        <div class="feature-list">
+                                            <span class="feature-tag">Organic</span>
+                                            <span class="feature-tag">Moisturizing</span>
+                                            <span class="feature-tag">Aromatherapy</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-price">
+                                        <div class="price-info">
+                                            <span class="price-amount">₱285</span>
+                                            <span class="price-unit">per 350ml bottle</span>
+                                        </div>
+                                        <button class="add-to-cart-btn">Add to Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="products-grid">
+                            <div class="product-card">
+                                <div class=""><img src="../img/lavender.jpg" alt=""></div>
+                                <div class="product-content">
+                                    <h4 class="product-name">Lavender Dreams</h4>
+                                    <p class="product-description">A soothing blend of organic lavender essential oil and shea butter that gently cleanses while providing deep moisturization.</p>
+                                    <div class="product-features">
+                                        <div class="feature-list">
+                                            <span class="feature-tag">Organic</span>
+                                            <span class="feature-tag">Moisturizing</span>
+                                            <span class="feature-tag">Aromatherapy</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-price">
+                                        <div class="price-info">
+                                            <span class="price-amount">₱285</span>
+                                            <span class="price-unit">per 350ml bottle</span>
+                                        </div>
+                                        <button class="add-to-cart-btn">Add to Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="products-grid">
+                            <div class="product-card">
+                                <div class=""><img src="../img/lavender.jpg" alt=""></div>
+                                <div class="product-content">
+                                    <h4 class="product-name">Lavender Dreams</h4>
+                                    <p class="product-description">A soothing blend of organic lavender essential oil and shea butter that gently cleanses while providing deep moisturization.</p>
+                                    <div class="product-features">
+                                        <div class="feature-list">
+                                            <span class="feature-tag">Organic</span>
+                                            <span class="feature-tag">Moisturizing</span>
+                                            <span class="feature-tag">Aromatherapy</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-price">
+                                        <div class="price-info">
+                                            <span class="price-amount">₱285</span>
+                                            <span class="price-unit">per 350ml bottle</span>
+                                        </div>
+                                        <button class="add-to-cart-btn">Add to Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="products-grid">
+                            <div class="product-card">
+                                <div class=""><img src="../img/lavender.jpg" alt=""></div>
+                                <div class="product-content">
+                                    <h4 class="product-name">Lavender Dreams</h4>
+                                    <p class="product-description">A soothing blend of organic lavender essential oil and shea butter that gently cleanses while providing deep moisturization.</p>
+                                    <div class="product-features">
+                                        <div class="feature-list">
+                                            <span class="feature-tag">Organic</span>
+                                            <span class="feature-tag">Moisturizing</span>
+                                            <span class="feature-tag">Aromatherapy</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-price">
+                                        <div class="price-info">
+                                            <span class="price-amount">₱285</span>
+                                            <span class="price-unit">per 350ml bottle</span>
+                                        </div>
+                                        <button class="add-to-cart-btn">Add to Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dish Washing Liquids Category -->
+                    <div class="category-section">
+                        <div class="category-header">
+                            <div class="category-icon">🍽️</div>
+                            <div>
+                                <h3 class="category-title">Dish Washing Liquids</h3>
+                                <p class="category-description">Heavy-duty grease cutting power with gentle hand care</p>
+                            </div>
+                        </div>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-image"></div>
+                                <div class="product-content">
+                                    <h4 class="product-name">Grease Fighter Pro</h4>
+                                    <p class="product-description">Our strongest formula that cuts through the toughest grease and baked-on food while being gentle on hands.</p>
+                                    <div class="product-features">
+                                        <div class="feature-list">
+                                            <span class="feature-tag">Heavy Duty</span>
+                                            <span class="feature-tag">Hand Safe</span>
+                                            <span class="feature-tag">Long Lasting</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-price">
+                                        <div class="price-info">
+                                            <span class="price-amount">₱265</span>
+                                            <span class="price-unit">per 500ml bottle</span>
+                                        </div>
+                                        <button class="add-to-cart-btn">Add to Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Add more Dish Washing products here if needed -->
+                        </div>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-image"></div>
+                                <div class="product-content">
+                                    <h4 class="product-name">Grease Fighter Pro</h4>
+                                    <p class="product-description">Our strongest formula that cuts through the toughest grease and baked-on food while being gentle on hands.</p>
+                                    <div class="product-features">
+                                        <div class="feature-list">
+                                            <span class="feature-tag">Heavy Duty</span>
+                                            <span class="feature-tag">Hand Safe</span>
+                                            <span class="feature-tag">Long Lasting</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-price">
+                                        <div class="price-info">
+                                            <span class="price-amount">₱265</span>
+                                            <span class="price-unit">per 500ml bottle</span>
+                                        </div>
+                                        <button class="add-to-cart-btn">Add to Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Add more Dish Washing products here if needed -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Call to Action -->
+            <section class="cta-section">
+                <div class="cta-content">
+                    <h2 class="cta-title">Experience Clean Like Never Before</h2>
+                    <p class="cta-description">Explore our full range of handcrafted soaps and cleaning products made with care for you and the planet.</p>
+                    <a href="contact.html" class="cta-button">Order Now</a>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

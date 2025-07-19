@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Sabon Station</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Miniver&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        :root {
+            --white-color--: #fff;
+            --dark-color--: #252525;
+            --primary-color: #3106f0;
+            --secondary-color: #f3961c;
+            --light-pink-color: #faf4f5;
+            --medium-gray-color: #ccc;
+
+            --font-size-s: 0.9rem;
+            --font-size-n: 1rem;
+            --font-size-m: 1.12rem;
+            --font-size-l: 1.5rem;
+            --font-size-xl: 2rem;
+            --font-size-xxl: 2.3rem;
+            --font-size-hero: 3.5rem;
+
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+
+            --border-radius-s: 8px;
+            --border-radius-m: 30px;
+            --border-radius-circle: 50%;
+
+            --site-max-width: 1300px;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--light-pink-color) 0%, #f0e6e8 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Container for the entire layout */
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Left Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #4a1a26 100%);
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            padding: 30px 20px;
+            z-index: 1000;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        .nav-logo {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-logo .logo-text {
+            color: var(--white-color--);
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .nav-logo .tagline {
+            color: var(--secondary-color);
+            font-size: var(--font-size-s);
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-menu .nav-link {
+            display: block;
+            padding: 18px 25px;
+            font-size: var(--font-size-m);
+            color: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius-s);
+            transition: all 0.4s ease;
+            font-weight: var(--font-weight-medium);
+            position: relative;
+            overflow: hidden;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-menu .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(243, 150, 28, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .nav-menu .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-menu .nav-link:hover {
+            background: rgba(243, 150, 28, 0.15);
+            color: var(--white-color--);
+            transform: translateX(8px);
+            border-left-color: var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(243, 150, 28, 0.2);
+        }
+
+        .nav-menu .nav-link.active {
+            background: var(--secondary-color);
+            color: var(--white-color--);
+            border-left-color: var(--white-color--);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+            width: calc(100% - 280px);
+        }
+
+        /* Gallery Header */
+        .gallery-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #4a1a26 50%, #5c2030 100%);
+            padding: 80px 40px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)" opacity="0.6"><animate attributeName="cy" values="20;10;20" dur="4s" repeatCount="indefinite"/></circle><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.08)" opacity="0.4"><animate attributeName="cy" values="40;30;40" dur="6s" repeatCount="indefinite"/></circle><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.06)" opacity="0.5"><animate attributeName="cy" values="80;70;80" dur="5s" repeatCount="indefinite"/></circle><circle cx="90" cy="80" r="2.5" fill="rgba(255,255,255,0.05)" opacity="0.3"><animate attributeName="cy" values="80;65;80" dur="7s" repeatCount="indefinite"/></circle></svg>');
+            background-size: 300px 300px;
+            animation: bubbleFloat 15s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes bubbleFloat {
+            0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+            33% { transform: translateY(-15px) translateX(10px) rotate(120deg); }
+            66% { transform: translateY(-5px) translateX(-5px) rotate(240deg); }
+            100% { transform: translateY(0px) translateX(0px) rotate(360deg); }
+        }
+
+        .gallery-title {
+            font-size: var(--font-size-hero);
+            color: var(--white-color--);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gallery-subtitle {
+            font-size: var(--font-size-l);
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gallery-description {
+            font-size: var(--font-size-m);
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Gallery Filter */
+        .gallery-filter {
+            background: var(--white-color--);
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 24px;
+            background: var(--light-pink-color);
+            color: var(--primary-color);
+            border: 2px solid transparent;
+            border-radius: var(--border-radius-m);
+            font-size: var(--font-size-n);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(243, 150, 28, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .filter-btn:hover::before {
+            left: 100%;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--secondary-color);
+            color: var(--white-color--);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(243, 150, 28, 0.3);
+        }
+
+        /* Gallery Grid */
+        .gallery-section {
+            padding: 60px 40px;
+            background: var(--white-color--);
+        }
+
+        .gallery-container {
+            max-width: var(--site-max-width);
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            background: var(--light-pink-color);
+            border-radius: var(--border-radius-s);
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-item.hidden {
+            display: none;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(45deg, var(--light-pink-color), #f0e6e8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(243, 150, 28, 0.1) 50%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-image::before {
+            opacity: 1;
+        }
+
+        .gallery-content {
+            padding: 25px;
+        }
+
+        .gallery-item-title {
+            font-size: var(--font-size-l);
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .gallery-item-description {
+            color: var(--dark-color--);
+            font-size: var(--font-size-n);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .gallery-item-category {
+            display: inline-block;
+            padding: 5px 12px;
+            background: var(--secondary-color);
+            color: var(--white-color--);
+            font-size: var(--font-size-s);
+            border-radius: var(--border-radius-s);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--white-color--);
+            padding: 40px;
+            border-radius: var(--border-radius-s);
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.4s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 2rem;
+            color: var(--medium-gray-color);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--primary-color);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(45deg, var(--light-pink-color), #f0e6e8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            margin-bottom: 30px;
+            border-radius: var(--border-radius-s);
+        }
+
+        .modal-title {
+            font-size: var(--font-size-xl);
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .modal-description {
+            color: var(--dark-color--);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .modal-category {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--secondary-color);
+            color: var(--white-color--);
+            border-radius: var(--border-radius-s);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: var(--secondary-color);
+            color: var(--white-color--);
+            padding: 12px;
+            border-radius: var(--border-radius-s);
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: #e8851a;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                width: 100vw;
+                background: rgba(59, 20, 28, 0.98);
+                backdrop-filter: blur(10px);
+            }
+
+            .mobile-menu-toggle:checked + .mobile-menu-btn + .sidebar {
+                transform: translateX(0);
+            }
+
+            .mobile-menu-toggle:checked + .mobile-menu-btn {
+                background: var(--primary-color);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .gallery-header {
+                padding: 60px 20px 40px;
+            }
+
+            .gallery-title {
+                font-size: var(--font-size-xxl);
+            }
+
+            .gallery-subtitle {
+                font-size: var(--font-size-m);
+            }
+
+            .gallery-filter {
+                padding: 30px 20px;
+            }
+
+            .filter-buttons {
+                gap: 10px;
+            }
+
+            .filter-btn {
+                padding: 10px 20px;
+                font-size: var(--font-size-s);
+            }
+
+            .gallery-section {
+                padding: 40px 20px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .gallery-item {
+                margin-bottom: 10px;
+            }
+
+            .gallery-image {
+                height: 200px;
+                font-size: 3rem;
+            }
+
+            .gallery-content {
+                padding: 20px;
+            }
+
+            .modal-content {
+                padding: 30px;
+                width: 95%;
+            }
+
+            .modal-image {
+                height: 250px;
+                font-size: 4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-header {
+                padding: 40px 15px 30px;
+            }
+
+            .gallery-title {
+                font-size: var(--font-size-xl);
+            }
+
+            .gallery-section {
+                padding: 30px 15px;
+            }
+
+            .gallery-grid {
+                gap: 15px;
+            }
+
+            .gallery-image {
+                height: 180px;
+                font-size: 2.5rem;
+            }
+
+            .gallery-content {
+                padding: 15px;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+
+            .modal-image {
+                height: 200px;
+                font-size: 3rem;
+            }
+        }
+
+        /* Focus states for accessibility */
+        .nav-link:focus,
+        .filter-btn:focus,
+        .gallery-item:focus,
+        .modal-close:focus,
+        .mobile-menu-btn:focus {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Mobile Menu Toggle -->
+        <input type="checkbox" id="mobile-menu" class="mobile-menu-toggle">
+        <label for="mobile-menu" class="mobile-menu-btn">☰</label>
+
+        <!-- Left Sidebar Navigation -->
+        <nav class="sidebar">
+            <a href="#" class="nav-logo">
+                <h2 class="logo-text">🫧 Sabon Station</h2>
+                <p class="tagline">Premium Bath Experience</p>
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="learnmore.html" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="menu.html" class="nav-link">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a href="testimonals.html" class="nav-link">Testimonials</a>
+                </li>
+                <li class="nav-item">
+                    <a href="gallery.html" class="nav-link active">Gallery</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="profile.html" class="nav-link">Profile</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Gallery Header -->
+            <section class="gallery-header">
+                <h1 class="gallery-title">Our Gallery</h1>
+                <h2 class="gallery-subtitle">Luxury in Every Detail</h2>
+                <p class="gallery-description">
+                    Discover our collection of premium bath products through stunning visuals. From handcrafted soaps to elegant packaging, explore the beauty and quality that makes Sabon Station special.
+                </p>
+            </section>
+
+            <!-- Gallery Filter -->
+            <section class="gallery-filter">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Products</button>
+                    <button class="filter-btn" data-filter="soaps">Liquid Soaps</button>
+                    <button class="filter-btn" data-filter="detergents">Detergents</button>
+                    <button class="filter-btn" data-filter="packaging">Packaging</button>
+                    <button class="filter-btn" data-filter="process">Process</button>
+                </div>
+            </section>
+
+            <!-- Gallery Grid -->
+            <section class="gallery-section">
+                <div class="gallery-container">
+                    <div class="gallery-grid" id="gallery-grid">
+                        <!-- Liquid Soaps -->
+                        <div class="gallery-item" data-category="soaps">
+                            <div class="gallery-image"><img src="../img/blueberries.jpg" alt=""></div>
+                            <div class="gallery-content">
+                                <h3 class="gallery-item-title">Blueberries Liquid Soap</h3>
+                                <p class="gallery-item-description">Premium liquid soap infused with natural lavender essential oils for a calming and luxurious bathing experience.</p>
+                                <span class="gallery-item-category">Liquid Soaps</span>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-category="soaps">
+                            <div class="gallery-image"><img src="../img/coconut.jpg" alt=""></div>
+                            <div class="gallery-content">
+                                <h3 class="gallery-item-title">Coconut liquid Soap</h3>
+                                <p class="gallery-item-description">Delicate coconut-scented liquid soap with moisturizing properties, perfect for sensitive skin.</p>
+                                <span class="gallery-item-category">Liquid Soaps</span>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-category="soaps">
+                            <div class="gallery-image"><img src="../img/kiwi.jpg" alt=""></div>
+                            <div class="gallery-content">
+                                <h3 class="gallery-item-title">Kiwi liquid Soap</h3>
+                                <p class="gallery-item-description">Nourishing coconut milk formula that leaves skin feeling soft and hydrated all day long.</p>
+                                <span class="gallery-item-category">Liquid Soaps</span>
+                            </div>
+                        </div>
+
+                        <!-- Detergents -->
+                        <div class="gallery-item" data-category="detergents">
+                            <div class="gallery-image"><img src="../img/antibac.webp" alt=""></div>
+                            <div class="gallery-content">
+                                <h3 class="gallery-item-title">Antibac Dish Detergent</h3>
+                                <p class="gallery-item-description">Powerful yet gentle dish detergent that cuts through grease while being kind to your hands.</p>
+                                <span class="gallery-item-category">Detergents</span>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-category="detergents">
+                            <div class="gallery-image"><img src="../img/calamnsi.webp" alt=""></div>
+                            <div class="gallery-content">
+                                <h3 class="gallery-item-title">Calamansi Dish Detergent</h3>
+                                <p class="gallery-item-description">Luxury detergent that preserves colors and softness while providing superior cleaning power.</p>
+                                <span class="gallery-item-category">Detergents</span>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-category="detergents">
+                            <div class="gallery-image"><img src="../img/lemon.webp" alt=""></div>
+                            <div class="gallery-content">
+                                <h3 class="gallery-item-title">Lemon Dish Detergent</h3>
+                                <p class="gallery-item-description">Versatile cleaning solution perfect for multiple surfaces with a fresh, clean scent.</p>
+                                <span class="gallery-item-category">Detergents</span>
+                            </div>
+                        </div>
+
+                        <!-- Packaging -->
+                        <div class="gallery-item" data-category="packaging">
+                            <div class="gallery-image"><img src="../img/sunrise.jpg" alt=""></div>
+                            <div class="gallery-content">
+                                <h3 class="gallery-item-title">Sunrise Fabric softener</h3>
+                                <p class="gallery-item-description">Beautifully packaged gift sets perfect for special occasions and holidays.</p>
+                                <span class="gallery-item-category">Packaging</span>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-category="packaging">
+                            <div class="gallery-image"><img src="../img/labander.jpg" alt=""></div>
+                            <div class="gallery-content">
+                                <h3 class="gallery-item-title">Lavender Fabric softener</h3>
+                                <p class="gallery-item-description">Sustainable packaging solutions that reflect our commitment to environmental responsibility.</p>
+                                <span class="gallery-item-category">Packaging</span>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-category="packaging">
+                            <div class="gallery-image"><img src="../img/sakura.jpg" alt=""></div>
+                            <div class="gallery-content">
+                                <h3 class="gallery-item-title">Sakura Fabric softener</h3>
+                                <p class="gallery-item-description">Luxury glass bottles with elegant labels that showcase the quality of our products.</p>
+                                <span class="gallery-item-category">Packaging</span>
+                            </div>
+                        </div>
+
+                        <!-- Process -->
+                        <div class="gallery-item" data-category="process">
+                            <div class="gallery-image"><img src="../img/clorox.jpg" alt=""></div>
+                            <div class="gallery-content">
+                                <h3 class="gallery-item-title">Fabric Whitener</h3>
+                                <p class="gallery-item-description">Rigorous quality testing ensures every product meets our high standards of excellence.</p>
+                                <span class="gallery-item-category">Process</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for enlarged view -->
+    <div id="gallery-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-image" id="modal-image"></div>
+            <h3 class="modal-title" id="modal-title"></h3>
+            <p class="modal-description" id="modal-description"></p>
+            <span class="modal-category" id="modal-category"></span>
+        </div>
+    </div>
+
+    <script>
+        // Gallery filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const modal = document.getElementById('gallery-modal');
+        const modalClose = document.querySelector('.modal-close');
+
+        // Filter functionality
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-filter');
+                
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Filter items
+                galleryItems.forEach(item => {
+                    const category = item.getAttribute('data-category');
+                    if (filter === 'all' || category === filter) {
+                        item.classList
+                                                item.classList.remove('hide');
+                    } else {
+                        item.classList.add('hide');
+                    }
+                });
+            });
+        });
+
+        // Modal functionality
+        const modalImage = document.getElementById('modal-image');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+        const modalCategory = document.getElementById('modal-category');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const image = item.querySelector('.gallery-image').innerHTML;
+                const title = item.querySelector('.gallery-item-title').innerText;
+                const description = item.querySelector('.gallery-item-description').innerText;
+                const category = item.querySelector('.gallery-item-category').innerText;
+
+                modalImage.innerHTML = image;
+                modalTitle.textContent = title;
+                modalDescription.textContent = description;
+                modalCategory.textContent = category;
+
+                modal.classList.add('open');
+            });
+        });
+
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('open');
+        });
+
+        // Close modal when clicking outside the content
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('open');
+            }
+        });
+    </script>
+
+    <style>
+        .hide {
+            display: none;
+        }
+        .modal.open {
+            display: flex;
+        }
+    </style>
+</body>
+</html>
